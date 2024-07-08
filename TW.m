@@ -17,7 +17,7 @@ dzinit = diff(zinit);
 dz0pp = spline(zinit,[dzinit(1) 0.5*(dzinit(1:end-1)+dzinit(2:end)) dzinit(end)]);
 % spline of initial grid spacing
 
-L1 = zinit(1); L2 = zinit(end);
+L1 = zinit(1); L2 = zinit(end); %end points of grid
 
 if D==0
     kplus = -1/c;
@@ -32,7 +32,7 @@ if isempty(z)
 end
 dz = diff(z);
 zmid = 0.5*(z(1:end-1)+z(2:end));
-N = length(z); %disp(['N = ' num2str(N)])
+N = length(z); 
 
 if isempty(L)
     %Heaviside initial guess
@@ -54,17 +54,18 @@ if isempty(z0)
 else
     Nmax = 2*length(z0);
 end
+
 Nnew = 0;
 options = optimoptions('fsolve','SpecifyObjectiveGradient',true,'display','off',...
-    'MaxIter',100,'FunctionTolerance',tol^2,'StepTolerance',1e-16,'CheckGradients',false);
+    'MaxIter',100,'FunctionTolerance',tol^2,'StepTolerance',1e-16);
 
 [F,M1,M2,dmat2] = setup(z,zmid,dz,N,alpha,g,ker); % Set up constant matrices
-[L,fval] = fsolve(@(L) rhs(L,F,M1,M2,c,D,alpha,dz,N,uint,dmat2,kplus),L,options);
+[L,fval] = fsolve(@(L) rhs(L,F,M1,M2,c,D,alpha,dz,N,uint,dmat2,kplus),L,options); %Solve discretised equations
 nfv = norm(fval);
 disp(nfv)
 
-regridflag = true; regridcount = 0; regridcountmax = 8;
-maxposold = []; frontposold = [];
+regridflag = true; regridcount = 0; regridcountmax = 8; %counters for regridding
+maxposold = []; frontposold = []; %arrays for finding local maxima and fronts
 
 %Regridding loop
 while (nfv<1e12)&&(regridcount<regridcountmax)&&(regridflag||(nfv>tol0))&&(Nnew<=Nmax)
@@ -75,9 +76,6 @@ while (nfv<1e12)&&(regridcount<regridcountmax)&&(regridflag||(nfv>tol0))&&(Nnew<
     %Find fronts
     dudz = diff(u)./diff(z); zmid = 0.5*(z(1:end-1)+z(2:end));
     [~,frontpos] = findpeaks(-dudz,zmid,'MinPeakHeight',10);
-    % if length(frontpos)>length(maxpos)+1
-    %     frontpos = frontpos(end-length(maxpos):end);
-    % end
 
     dudzpp = spline(zmid,dudz);
 
@@ -109,8 +107,11 @@ while (nfv<1e12)&&(regridcount<regridcountmax)&&(regridflag||(nfv>tol0))&&(Nnew<
         regridflag = false;
     end
 end
+
 u = exp(L);
 w = -F/(1-alpha) + u(1:N-1)*M1'+u(2:N)*M2';
+
+%Plotting
 if (nfv<tol0)&&(Nnew<=Nmax)
     figure(1), clf
     grid on

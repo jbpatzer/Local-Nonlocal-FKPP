@@ -1,12 +1,23 @@
 function [z0,L0] = followpath(z1,L1,c1,c2,a1,a2,dsmax,zmin,zmax,dz0,ker,savename,count)
+%% Follow a path in alpha c parameter space finding TW solutions of the mixed local-nonlocal Fisher-KPP equation
+% z1, L1 initial solution
+% continuation from (a1,c1) to (a2,c2)
+% dsmax = maximum step length in log a, log c parameter space
+% initial grid is zinit = zmin:dz0:zmax
+% ker specifies kernel
+% save to files savename_count
+% continue from point 'count' on the curve (count = [] to begin)
+
 format compact
 format short g
+
 tol = 1e-2;
 dsmin = 1e-6;
 ds = dsmax;
 D0 = 0.25;
 zinit = zmin:dz0:zmax;
 umax = cell(1); weight = cell(1); maxpos = cell(1); aout = []; cout = [];
+
 if ~isempty(count)
     load([savename '_' num2str(count)],'z1','L1','s','ds')
 else
@@ -24,6 +35,7 @@ else
         save(savename,'weight','umax','maxpos','aout','cout')
     end
 end
+
 f = 0;
 while ((s>1e-14)||(norm(f)>tol))&&(ds>dsmin)
     if norm(f)<tol
