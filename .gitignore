@@ -1,0 +1,9 @@
+*.asv
+*.mat
+*.fig
+*.eps
+*.pdf
+*.svg
+Infdata/
+Phi1data/
+Phi2data/

@@ -1,0 +1,5 @@
+% boundaryscript(-1,1e-8,1e-8,-7.5,0.1,0.02,3,1,'Psik')
+% boundaryscript(2,1e-8,1e-8,-6,2,0.018,4,1,'Phi2')
+boundaryscript(Inf,1e-6,1e-8,-25,2,0.05,6,6,'PhiInf')
+boundaryscript(1,1e-8,1e-8,-6,2,0.018,1,1,'Phi1')
+boundaryscript(Inf,1e-10,1e-8,-50,2,0.05,10,1,'PhiInf_2')
