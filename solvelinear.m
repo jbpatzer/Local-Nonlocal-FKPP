@@ -1,4 +1,5 @@
 function C = solvelinear(Nz,alpha,z)
+%% The linear problem described in Section 4(c)
 N = 8*Nz;
 M = zeros(N); b = zeros(N,1);
 M(1,1) = 1; M(2,2) = 1;
@@ -15,6 +16,7 @@ C = (M\b)';
 
 %%
 function M = bcs(z,a)
+%% Boundary conditions
 kp = sqrt(sqrt(1/a)+1); km = sqrt(sqrt(1/a)-1);
 r2 = sqrt(2); exA = exp(r2*z); exmA = 1/exA; 
 exB = exp(kp*z); exmB = 1/exB; cz = cos(km*z); sz = sin(km*z);

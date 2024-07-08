@@ -1,4 +1,13 @@
 function boundaryscript(ker,cmin,alphamin,z0,z1,dz0,Nm,Nm0,savefile)
+%% Find boundaries between regions with different numbers of spikes
+%% Arc-length continuation in (log c, log alpha)-space.
+% ker = kernel
+% cmin = smallest value of c
+% alphamin = smallest value of alpha
+% initial grid z0:dz0:z1
+% Nm = number of regions
+% Nm0>1 for continuation
+% save to savefile
 D0 = 0.25;
 zinit = z0:dz0:z1;
 ds = 0.025;
@@ -25,6 +34,8 @@ for minflag = Nm0:Nm
     end
     dsv = [0 ds];
     fac = 0.9;
+
+    %First pass, increment c
     while (c0>=cmin)&&(abs(dsv(1))<abs(dsv(2)))
         [z1,L1,f] = TW(z0,L0,zinit,ker,c0,D0,alphabound{minflag}(end),minflag);
         if alphabound{minflag}(end)==alphamin
@@ -84,6 +95,7 @@ for minflag = Nm0:Nm
         options = optimset('display','iter','TolX',1e-4*cbound{minflag}(end));
     end
 
+        % Second pass increment alpha
     cbound{minflag} = [cbound{minflag} c0]; alpha0 = alphabound{minflag}(end);
     alphabound{minflag} = alphabound{minflag}(1:end-1);
     if cbound{minflag}(end)>=cmin

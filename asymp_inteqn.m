@@ -1,4 +1,5 @@
 function [minU,minz,z,zg,U,zW,ppW] = asymp_inteqn(Nz,alpha,z0,ker,zmin)
+%% Solve for the leading order asymptotic solution with c<<1 and alpha = O(1) for phi = Phi_inf
 if isempty(z0)
     disp('Need a guess')
     minU = []; minz = []; z = []; zg = []; zW=[]; ppW=[];

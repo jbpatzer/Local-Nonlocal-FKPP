@@ -5,7 +5,8 @@ function [z,L,f,fval,w] = TW(z0,L0,zinit,ker,c,D0,alpha,minflag)
 % c = wavespeed
 % diffusion parameter is D = D0*c^2
 % alpha = nonlinearity parameter
-% calculate from trough minflag
+% calculate local minimum behind trough minflag - used to calculate figs 10
+% and 12
 
 persistent uint
 
@@ -153,7 +154,7 @@ if (nfv<tol0)&&(Nnew<=Nmax)
 end
 
 if ~isempty(minflag)
-    f0 = 1e-2;
+    f0 = 1e-2; %f = 0 when local minimum is f0. Used to calculate figs 10 and 12
     p = fliplr(-findpeaks(-L(z<0),'MinPeakHeight',0));
     if length(p)>=minflag
         f = exp(p(minflag))-f0;

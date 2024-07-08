@@ -1,4 +1,5 @@
 function [U,zg,zW,ppW] = solvelinear_inteqn(alpha,z,ker,zmin)
+%% The linear problem described in Section 4(d)
 g = 0.5*(1-1/sqrt(3)); %Gaussian quadrature points
 dz0 = 0.1; Nmin = 10; NW = 100;
 z = [z z(end)-zmin]; %#ok<*NASGU>

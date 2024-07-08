@@ -1,4 +1,5 @@
 function [minU,minz,z,C,zplot,U] = Phi2asymp(Nz,alpha,z0)
+%% Solve for the leading order asymptotic solution with c<<1 and alpha = O(1) for phi = Phi_1
 if isempty(z0)
     disp('Need a guess')
     minU = []; minz = []; z = []; C = [];

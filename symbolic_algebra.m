@@ -1,7 +1,7 @@
 C = sym('c',[1 8]);
 F = sym('f', [1 4]);
 M = sym('m',[4 8]);
-syms a z km kp
+syms z km kp
 wA = (C(1) + C(2)*z)*exp(sqrt(2)*z) + (C(3)+C(4)*z)*exp(-sqrt(2)*z);
 wB = 1 + exp(kp*z)*(C(5)*cos(km*z) + C(6)*sin(km*z)) + exp(-kp*z)*(C(7)*cos(km*z)+ C(8)*sin(km*z));
 F(1) = wA-wB+1;
@@ -50,6 +50,7 @@ wB0 = simplify(subs(wB,{C,D},{S.C,S.D}),10);
 wB0 = simplify(subs(wB0,{km,kp},{sqrt(sqrt(1/a)-1),sqrt(sqrt(1/a)+1)}),10);
 disp(wB0)
 
+%test
 alpha = logspace(-10,0,1000);
 w0 = zeros(size(alpha));
 for k = 1:1000

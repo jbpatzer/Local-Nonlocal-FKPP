@@ -1,3 +1,6 @@
+%% Find the leading order asymptotic solution of the TW problem with c << 1 and alpha = O(1) for phi = Phi_2
+% Performs adaptive continuation in alpha
+
 alpha = 0.0065; fac = 0.99; fac1 = 0.95; alphamin = 5e-8;
 y = []; z = 0; Nz = 1; alphaspike = []; count = 1;
 zout = cell(1); Umax = cell(1); dzout = cell(1);
