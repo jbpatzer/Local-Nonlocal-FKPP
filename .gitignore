@@ -4,6 +4,7 @@
 *.eps
 *.pdf
 *.svg
+*.nb
 Infdata/
 Phi1data/
 Phi2data/
