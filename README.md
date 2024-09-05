@@ -1,6 +1,6 @@
 # Local-Nonlocal FKPP
  
-MATLAB code for the paper *Slow travelling wave solutions of the mixed local-nonlocal Fisher-KPP equation can have multiple sharp wavefronts* by Jia Yin Lee and John Billingham, submitted to *Proceedings of the Royal Society A*. Descriptions of the main subroutines follow below.
+MATLAB code for the paper *Slow travelling wave solutions of the mixed local-nonlocal Fisher-KPP equation can have multiple sharp wavefronts* by Jia Yin Lee and John Billingham, *Proceedings of the Royal Society A*. Descriptions of the main subroutines follow below.
 
 ## TW.m
 Solves for travelling wave solutions of the mixed local-nonlocal Fisher-KPP equation, which satisfy (1.3) subject to (1.4)
